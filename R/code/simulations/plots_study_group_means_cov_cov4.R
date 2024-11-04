@@ -22,7 +22,7 @@ parse_labels <- function(labels, ...) parse(text = labels, ...)
 # load file
 
 suffix <- "simulations_study_group_means_cov_cov4_n=1000_r=50_sigma1=1.000000_sigma2=1" 
-load(paste0("results/simulations/",suffix, ".RData"))
+load(paste0("R/results/simulations/",suffix, ".RData"))
 
 
 # rename some labels and filter relevant results
@@ -118,7 +118,7 @@ for (q_val in unique(res_df$q)){
   legend_position <- ifelse(q_val==2, "top", "none")
   
   # file name for plot
-  file_plot <- "figures/simulations/%s_q_%d_eigenvalues.%s"
+  file_plot <- "R/figures/simulations/%s_q_%d_eigenvalues.%s"
   # save plot to pdf
   pdf(sprintf(file_plot, suffix, q_val, "pdf"), width = 12, height = 3)
   

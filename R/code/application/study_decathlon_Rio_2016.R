@@ -83,7 +83,7 @@ p3 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.10, color = name)) +
   theme(legend.position = "none") +
   labs(x = parse_labels("IC[1]"), y = parse_labels("IC[10]"))
 
-pdf("figures/application/decathlon_Rio_2016_ICS_initial.pdf", width = 12, height = 3)
+pdf("R/figures/application/decathlon_Rio_2016_ICS_initial.pdf", width = 12, height = 3)
 p1+p2+p3 +
   plot_annotation(
     title = 'Decathlon data',

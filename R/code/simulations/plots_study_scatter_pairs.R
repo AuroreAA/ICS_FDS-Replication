@@ -18,7 +18,7 @@ parse_labels <- function(labels, ...) parse(text = labels, ...)
 
 # Import results for dimension reduction ---------------------------------------
 suffix = "n=1000_r=50_sigma1=1.000000_sigma2=1"
-load(paste0("results/simulations/simulations_study_scatter_pairs_",suffix, ".RData"))
+load(paste0("R/results/simulations/simulations_study_scatter_pairs_",suffix, ".RData"))
 
 
 
@@ -125,7 +125,7 @@ for (q_val in unique(res_df$q)){
   
   
   # file name for plot
-  file_plot <- "figures/simulations/simulations_study_scatter_pairs_%s_q_%d_IC_clusters.%s"
+  file_plot <- "R/figures/simulations/simulations_study_scatter_pairs_%s_q_%d_IC_clusters.%s"
   # save plot to pdf
   pdf(sprintf(file_plot, suffix, q_val, "pdf"), width = 20, height = 4)
   

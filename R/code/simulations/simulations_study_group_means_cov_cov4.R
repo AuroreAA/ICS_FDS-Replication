@@ -185,7 +185,7 @@ results <- do.call(rbind, results_list)
 
 
 # save results to file
-file_results <- "results/simulations/simulations_study_group_means_cov_cov4_n=%d_r=%d_sigma1=%f_sigma2=%d.RData"
+file_results <- "R/results/simulations/simulations_study_group_means_cov_cov4_n=%d_r=%d_sigma1=%f_sigma2=%d.RData"
 save(results, seed, file = sprintf(file_results, n, R, sigma1, sigma2))
 
 # print message that simulation is done
