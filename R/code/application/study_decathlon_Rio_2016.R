@@ -19,6 +19,7 @@ library(stringr)
 # For plot
 library(ggplot2)
 library(patchwork)
+library(ggrepel)
 
 
 # function for parsing axis labels
@@ -56,28 +57,30 @@ res <- ICS(df[,order_var])
 df_ics <- data.frame(name = df$name, group = colors_plot, res$scores)
 
 p1 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.2, color = name)) +
-  geom_point() +
-  geom_text(data = df_ics[df_ics$name %in% keep_athletes,], aes(label = name),
-            vjust = 0, nudge_y = 0.1, nudge_x = -0.1, size = 2) +
+  geom_point(size = 2) +
+  ggrepel::geom_text_repel(data = df_ics[df_ics$name %in% keep_athletes,], 
+                           aes(label = name), point.size = 2, size = 3,
+                           max.overlaps = Inf) +
   scale_color_manual("athletes", values = colors_plot) +
   theme_classic() +
   theme(legend.position = "none") +
   labs(x = parse_labels("IC[1]"), y = parse_labels("IC[2]"))
 
 p2 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.3, color = name)) +
-  geom_point() +
-  geom_text(data = df_ics[df_ics$name %in% keep_athletes,], aes(label = name),
-            vjust = 0, nudge_y = 0.1, nudge_x = -0.1, size = 2) +
+  geom_point(size = 2) +
+  ggrepel::geom_text_repel(data = df_ics[df_ics$name %in% keep_athletes,], 
+                           aes(label = name), point.size = 2, size = 3,
+                           max.overlaps = Inf) +
   scale_color_manual("athletes", values = colors_plot) +
   theme_classic() +
   theme(legend.position = "none") +
   labs(x = parse_labels("IC[1]"), y = parse_labels("IC[3]"))
 
-
 p3 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.10, color = name)) +
-  geom_point() +
-  geom_text(data = df_ics[df_ics$name %in% keep_athletes,], aes(label = name),
-            vjust = 0, nudge_y = 0.1, nudge_x = -0.1, size = 2) +
+  geom_point(size = 2) +
+  ggrepel::geom_text_repel(data = df_ics[df_ics$name %in% keep_athletes,], 
+                           aes(label = name), point.size = 2, size = 3,
+                           max.overlaps = Inf) +
   scale_color_manual("athletes", values = colors_plot) +
   theme_classic() +
   theme(legend.position = "none") +
@@ -100,31 +103,33 @@ set.seed(20241016)
 
 # data generation
 df_ini <- df[df$name=="23_SALURI",]
-df_new <- data.frame(name = paste(df_ini$name, 1),
+df_new <- data.frame(name = gsub("23_", "23a_", df_ini$name),
                      df_ini[,order_var]+sapply(order_var, function(i) runif(1,-20,20)),
-                     group = paste(df_ini$name, 1))
+                     group = gsub("23_", "23a_", df_ini$name))
 df_modified <- rbind(df, df_new)
 
 # ICS
 res <- ICS(df_modified[,order_var])
 df_ics <- data.frame(name = df_modified$name,  res$scores)
-keep_athletes <- c(keep_athletes,  "23_SALURI 1")
-colors_plot <- c(colors_plot, "23_SALURI 1" = "darkmagenta")
+keep_athletes <- c(keep_athletes,  "23a_SALURI")
+colors_plot <- c(colors_plot, "23a_SALURI" = "darkmagenta")
 
 # Plot
 p1 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.2, color = name)) +
-  geom_point() +
-  geom_text(data = df_ics[df_ics$name %in% keep_athletes,], aes(label = name),
-            vjust = 0, nudge_y = 0.1, nudge_x = -0.1, size = 2) +
+  geom_point(size = 2) +
+  ggrepel::geom_text_repel(data = df_ics[df_ics$name %in% keep_athletes,], 
+                           aes(label = name), point.size = 2, size = 3,
+                           max.overlaps = Inf) +
   scale_color_manual("athletes", values = colors_plot) +
   theme_classic() +
   theme(legend.position = "none") +
   labs(x = parse_labels("IC[1]"), y = parse_labels("IC[2]"))
 
 p2 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.3, color = name)) +
-  geom_point() +
-  geom_text(data = df_ics[df_ics$name %in% keep_athletes,], aes(label = name),
-            vjust = 0, nudge_y = 0.1, nudge_x = -0.1, size = 2) +
+  geom_point(size = 2) +
+  ggrepel::geom_text_repel(data = df_ics[df_ics$name %in% keep_athletes,], 
+                           aes(label = name), point.size = 2, size = 3,
+                           max.overlaps = Inf) +
   scale_color_manual("athletes", values = colors_plot) +
   theme_classic() +
   theme(legend.position = "none") +
@@ -132,15 +137,16 @@ p2 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.3, color = name)) +
 
 
 p3 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.10, color = name)) +
-  geom_point() +
-  geom_text(data = df_ics[df_ics$name %in% keep_athletes,], aes(label = name),
-            vjust = 0, nudge_y = 0.1, nudge_x = -0.1, size = 2) +
+  geom_point(size = 2) +
+  ggrepel::geom_text_repel(data = df_ics[df_ics$name %in% keep_athletes,], 
+                           aes(label = name), point.size = 2, size = 3,
+                           max.overlaps = Inf) +
   scale_color_manual("athletes", values = colors_plot) +
   theme_classic() +
   theme(legend.position = "none") +
   labs(x = parse_labels("IC[1]"), y = parse_labels("IC[10]"))
 
-pdf("figures/application/decathlon_Rio_2016_ICS_one_athlete.pdf", width = 12, height = 3)
+pdf("R/figures/application/decathlon_Rio_2016_ICS_one_athlete.pdf", width = 12, height = 3)
 p1+p2+p3 +
   plot_annotation(
     title = 'Decathlon data with one additional athlete',
@@ -153,31 +159,33 @@ dev.off()
 # We generate one additional athlete to the data set.
 
 # data generation
-df_new <- data.frame(name = paste(df_ini$name, 2),
+df_new <- data.frame(name = gsub("23_", "23b_", df_ini$name),
                      df_ini[,order_var]+sapply(order_var, function(i) runif(1,-20,20)),
-                     group = paste(df_ini$name, 2))
+                     group = gsub("23_", "23b_", df_ini$name))
 df_modified <- rbind(df_modified, df_new)
 
 # ICS
 res <- ICS(df_modified[,order_var])
 df_ics <- data.frame(name = df_modified$name,  res$scores)
-keep_athletes <- c(keep_athletes, "23_SALURI 2" )
-colors_plot <- c(colors_plot, "23_SALURI 2" = "darkmagenta")
+keep_athletes <- c(keep_athletes, "23b_SALURI" )
+colors_plot <- c(colors_plot, "23b_SALURI" = "darkmagenta")
 
 # Plot
 p1 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.2, color = name)) +
-  geom_point() +
-  geom_text(data = df_ics[df_ics$name %in% keep_athletes,], aes(label = name),
-            vjust = 0, nudge_y = 0.1, nudge_x = -0.1, size = 2) +
+  geom_point(size = 2) +
+  ggrepel::geom_text_repel(data = df_ics[df_ics$name %in% keep_athletes,], 
+                           aes(label = name), point.size = 2, size = 3,
+                           max.overlaps = Inf) +
   scale_color_manual("athletes", values = colors_plot) +
   theme_classic() +
   theme(legend.position = "none") +
   labs(x = parse_labels("IC[1]"), y = parse_labels("IC[2]"))
 
 p2 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.3, color = name)) +
-  geom_point() +
-  geom_text(data = df_ics[df_ics$name %in% keep_athletes,], aes(label = name),
-            vjust = 0, nudge_y = 0.1, nudge_x = -0.1, size = 2) +
+  geom_point(size = 2) +
+  ggrepel::geom_text_repel(data = df_ics[df_ics$name %in% keep_athletes,], 
+                           aes(label = name), point.size = 2, size = 3,
+                           max.overlaps = Inf) +
   scale_color_manual("athletes", values = colors_plot) +
   theme_classic() +
   theme(legend.position = "none") +
@@ -185,15 +193,16 @@ p2 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.3, color = name)) +
 
 
 p3 <- df_ics %>% ggplot(aes(x=IC.1, y = IC.10, color = name)) +
-  geom_point() +
-  geom_text(data = df_ics[df_ics$name %in% keep_athletes,], aes(label = name),
-            vjust = 0, nudge_y = 0.1, nudge_x = -0.1, size = 2) +
+  geom_point(size = 2) +
+  ggrepel::geom_text_repel(data = df_ics[df_ics$name %in% keep_athletes,], 
+                           aes(label = name), point.size = 2, size = 3,
+                           max.overlaps = Inf) +
   scale_color_manual("athletes", values = colors_plot) +
   theme_classic() +
   theme(legend.position = "none") +
   labs(x = parse_labels("IC[1]"), y = parse_labels("IC[10]"))
 
-pdf("figures/application/decathlon_Rio_2016_ICS_two_athletes.pdf", width = 12, height = 3)
+pdf("R/figures/application/decathlon_Rio_2016_ICS_two_athletes.pdf", width = 12, height = 3)
 p1+p2+p3 +
   plot_annotation(
     title = 'Decathlon data with two additional athletes',
