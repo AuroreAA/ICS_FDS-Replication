@@ -22,3 +22,11 @@ Please note that this repository is rather large because it also contains
 data files with all simulation results.  This way, if you only want to quickly
 reproduce the figures with simulation results, you do not actually need to run 
 the simulations first.
+
+## Authors
+
+Archimbaud, A. and Becquart, C.
+
+## License
+
+GNU GPLv3
