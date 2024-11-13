@@ -198,8 +198,10 @@ if __name__ == "__main__":
     results = np.apply_along_axis(eig_cc4_simplified, 1, eps_grid, mu_x_groups)
     df_results = export_results_csv(results, mu_x_groups, path_results_output, k, p)
 
-    # Plots
+    # Figure 4a
     ternary_plot_gradient(df_results, lambda_1=True)
+    # Figure 4b
     ternary_plot_gradient(df_results, lambda_1=False)
+    # Figure 5
     ternary_plot(df_results)
 

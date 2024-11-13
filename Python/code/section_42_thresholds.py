@@ -268,9 +268,10 @@ if __name__ == "__main__":
     # Scenario 2 and 3 (k >= 3)
     df_threshold_near = compute_thresholds_near_threshold(k_list, df_means, df_threshold)
     df_threshold_alpha2_5pct = compute_thresholds_alpha2_5pct(k_list, df_means)
-    # Plot and export results
+    # Figure 6
     fig = scatterplot_threshold_per_group(
         df_threshold, df_threshold_near, df_threshold_alpha2_5pct)
     fig.write_image(path_figures_output + "scatterplot_3setups.jpg", scale=2)
+    # Table 1
     df_output = table_threshold_per_group(df_threshold, df_threshold_near, df_threshold_alpha2_5pct)
     df_output.to_csv(path_results_output + 'results_3setups.csv', index=False)

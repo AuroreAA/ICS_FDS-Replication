@@ -257,7 +257,7 @@ if __name__ == "__main__":
     df_means = pd.read_csv(config_path, sep=",")
     df_means = df_means.map(str_to_np_array)
 
-    # Case 1: Gaussian distribution
+    # Case 1: Gaussian distribution (Figure 1)
     df_results = compute_eig_cc4_multiple_means(param_k_q_gaussian, df_means, dict_weights_gaussian, False)
     df_results.to_csv(path_results_output + 'boxplot_gaussian.csv', index=False)
 
@@ -267,7 +267,7 @@ if __name__ == "__main__":
         fig.layout.annotations[i].update(text=title)
     fig.write_image(path_figures_output + 'boxplot_gaussian' + ".jpg", scale=2)
 
-    # Case 2: No noise, q = k-1
+    # Case 2: No noise, q = k-1 (Figure 2)
     df_results = compute_eig_cc4_multiple_means(param_k_q_eq, df_means, dict_weights, True)
     df_results.to_csv(path_results_output + 'boxplot_dirac_q_eq.csv', index=False)
 
@@ -277,7 +277,7 @@ if __name__ == "__main__":
                                "5-5-5-5-5-5<br>5-15-20-30"], row=2, col=2)
     fig.write_image(path_figures_output + 'boxplot_dirac_q_eq' + ".jpg", scale=2)
 
-    # Case 3: No noise, q < k-1
+    # Case 3: No noise, q < k-1 (Figures 3 and S1)
     df_results = compute_eig_cc4_multiple_means(param_k_q_lt[:4], df_means, dict_weights, True)
     df_results.to_csv(path_results_output + 'boxplot_dirac_q_lt_1.csv', index=False)
     fig = plot_boxplot(param_k_q_lt[:4], df_results, dict_weights, colors, title="")
@@ -292,7 +292,7 @@ if __name__ == "__main__":
                                    "5-5-5-5-5-5<br>5-15-20-30"], row=l, col=c)
     fig.write_image(path_figures_output + 'boxplot_dirac_q_lt_2' + ".jpg", scale=2)
 
-    # Case 4: No noise, q = k-1, at threshold
+    # Case 4: No noise, q = k-1, at threshold (Figure 7)
     df_results = compute_eig_cc4_multiple_means(param_k_q_threshold, df_means.head(1), dict_weights_threshold, True)
     df_results.to_csv(path_results_output + 'boxplot_threshold.csv', index=False)
 
